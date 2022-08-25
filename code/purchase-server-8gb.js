@@ -1,4 +1,4 @@
-/** @param {NS} ns */
+/** @param {import("..").NS} ns */
 export async function main(ns) {
     // How much RAM each purchased server will have. In this case, it'll
     // be 8GB.

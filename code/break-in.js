@@ -1,4 +1,4 @@
-/** @param {NS} ns */
+/** @param {import("..").NS} ns */
 export async function main(ns) {
 	var target = ns.getServer(ns.args[0]);
 	if (target.hasAdminRights) {

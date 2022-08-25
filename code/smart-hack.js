@@ -1,4 +1,4 @@
-/** @param {NS} ns */
+/** @param {import("..").NS} ns */
 export async function main(ns) {
     var scriptSize = ns.getScriptRam("hack-it.js");
     ns.print("Beginning hack...");
