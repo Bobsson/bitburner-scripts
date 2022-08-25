@@ -13,12 +13,12 @@ export async function main(ns) {
         await ns.sleep(5000);
         if (securValue > securThresh) {
             ns.print("Too secure, running weaken (" + securValue + " > " + securThresh + ")");
-            ns.exec("/servers/server-hack-weaken.js", server, threads, target, securThresh);
+            ns.exec("/deployable/server-hack-weaken.js", server, threads, target, securThresh);
         } else if (moneyValue < moneyThresh) {
             ns.print("Too poor, running grow (" + moneyValue + " < " + moneyThresh + ")");
-            ns.exec("/servers/server-hack-grow.js", server, threads, target, moneyThresh);
+            ns.exec("/deployable/server-hack-grow.js", server, threads, target, moneyThresh);
         } else {
-            ns.exec("/servers/server-hack-hack.js", server, threads, target);
+            ns.exec("/deployable/server-hack-hack.js", server, threads, target);
         }
 	}
 }
