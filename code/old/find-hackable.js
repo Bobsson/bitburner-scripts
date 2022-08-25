@@ -1,4 +1,4 @@
-/** @param {import("..").NS} ns */
+/** @param {import("../..").NS} ns */
 export async function main(ns) {
 	ns.disableLog("ALL");
 	var toVisit = ["home"];
@@ -38,7 +38,10 @@ export async function main(ns) {
 	// 	"hostname": value.hostname,
 	// 	"eHVS": value.effectiveHackValuePerSecond
 	// };}))
-	targets.forEach(([key, value]) => ns.print(value.hostname, ": ", value.requiredHackingSkill));
+	targets.forEach(([key, value]) => ns.print(value.hostname, ": ", 
+											value.requiredHackingSkill, " skill, ", 
+											value.numOpenPortsRequired, " ports, ", 
+											value.maxRam, " ram"));
 	//ns.print(targets.length);
 	//ns.print(targets[0]);
 }

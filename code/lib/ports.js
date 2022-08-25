@@ -23,9 +23,11 @@ export async function sendQuery(ns, portId, query)
     // Header: Script|Host|Port
     var header = [ns.getScriptName(), ns.getHostname(), portId].join("|");
     // Send the data with our header, then wait for a matching response.
+    //ns.print("Header: ", header);
     await ns.writePort(portId, header + "||" + query);
     while (!ns.peek(portId+10).startsWith(header))
     {
+        //ns.print("Found wrong message: ", ns.peek(portId+10));
         await ns.sleep(1000);
     }
     return ns.readPort(portId+10).replace(header + "||", "");
@@ -52,6 +54,6 @@ export async function runServer(ns, portId, callback)
         var response = await callback(query);
         var responseMessage = header + "||" + response;
         ns.print("Sending response: " + responseMessage);
-        while (!responsePort.tryWrite(responseMessage)) await ns.sleep(100);
+        while (!responsePort.tryWrite(responseMessage)) { ns.print("Port full: ", portId+10); await ns.sleep(100); }
     }
 }
