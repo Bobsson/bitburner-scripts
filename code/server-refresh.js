@@ -1,6 +1,8 @@
+import * as libPort from "lib/ports.js";
+
 /** @param {import("..").NS} ns */
 export async function main(ns) {
-	var target = ns.args[0];
+	var target = await libPort.sendQuery(ns, 1, "hack");
 	var refreshMins = ns.args[1];
 
 	while(true)

@@ -19,6 +19,7 @@
 /** @param {import("../..").NS} ns */
 export async function sendQuery(ns, portId, query)
 {
+	if (ns.isLogEnabled("sleep")) ns.disableLog("sleep");
     // Header: Script|Host|Port
     var header = [ns.getScriptName(), ns.getHostname(), portId].join("|");
     // Send the data with our header, then wait for a matching response.

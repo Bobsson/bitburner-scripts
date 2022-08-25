@@ -18,9 +18,16 @@ export async function main(ns) {
 			if (servers[s] == null) {
 				//ns.print("Scanning ", s);
 				servers[s] = ns.getServer(s);
+
 				servers[s]['hackValue'] = servers[s].moneyAvailable * ns.hackAnalyze(s);
 				servers[s]['effectiveHackValue'] = servers[s].hackValue * ns.hackAnalyzeChance(s);
 				servers[s]['effectiveHackValuePerSecond'] = servers[s].effectiveHackValue / ns.getHackTime(s);
+
+				servers[s]['growDoublingCycles'] = ns.growthAnalyze(s, 2);
+				servers[s]['growDoublingTime'] = servers[s].growDoublingCycles * ns.getGrowTime(s);
+				servers[s]['growthPotential'] = servers[s].moneyMax - servers[s].moneyAvailable;
+				servers[s]['growDoublingProgressPerSecond'] = servers[s].growthPotential / servers[s].growDoublingTime;
+
 				/*{
 					'root': ns.hasRootAccess(s),
 					'maxMoney': ns.getServerMaxMoney(s),
@@ -49,8 +56,27 @@ export async function main(ns) {
 			ns.print("Best server for hacking: " + targets[0][1].hostname);
 			return targets[0][1].hostname;
 		}
-		else
-		{
+		else if (query == "grow") {
+			var targets = Object.entries(servers)
+				.filter(([name, data]) => data.hasAdminRights && data.moneyMax > 0)
+				.sort((a, b) => {
+					//ns.print("Comparing", b[1].effectiveHackValuePerSecond, " - ", a[1].effectiveHackValuePerSecond);
+					return (b[1].growDoublingProgressPerSecond - a[1].growDoublingProgressPerSecond)
+				});
+			ns.print(targets.map(([key, value]) => {return {
+				"hostname": value.hostname,
+				"cycles": value.growDoublingCycles,
+				"time": value.growthPotential,
+				"progress": value.growDoublingProgressPerSecond,
+				// "gp": Math.round(value.growthPotential),
+				// "gv": Math.round(value.serverGrowth),
+				// "gs": Math.round(value.growPower),
+				// "gps": Math.round(value.growPerSecond)
+			};}));
+			return targets[0][1].hostname; 
+		}
+		else {
+			ns.alert("Invalid query: ", query);
 			return "";
 		}
 
