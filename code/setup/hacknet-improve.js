@@ -1,6 +1,11 @@
 /** @param {import("../..").NS} ns */
 export async function main(ns) {
     var cutoff = ns.args[0];
+    if (cutoff == undefined) 
+    {
+        ns.print("No threshold specified, using 0");
+        cutoff = 0;
+    }
     ns.disableLog("getServerMoneyAvailable");
     while (ns.getServerMoneyAvailable("home") > cutoff) {
         if (!findBestNodeUpgrade(ns)) break;
@@ -30,6 +35,10 @@ function findBestNodeUpgrade(ns) {
     //ns.print(nodeCosts);
     var sorted = Object.entries(nodeCosts).filter(n => n[1] != 1).sort((a, b) => a[1] - b[1]);
     //ns.print(sorted);
+    if (sorted.length == 0) 
+    {
+        ns.print("Nothing to do"); return;
+    }
     var cheapestId = sorted[0][0];
     var cheapestNode = ns.hacknet.getNodeStats(cheapestId);
     //ns.print("Targeting node ", cheapestId);
