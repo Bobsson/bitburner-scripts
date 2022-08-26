@@ -2,7 +2,7 @@ import * as utils from "lib/utils.js";
 
 /** @param {import("..").NS} ns */
 export async function main(ns) {
-    await utils.getAllServers(ns).forEach(async s => {
+    await utils.getAllHostnames(ns).forEach(async s => {
         ns.print("Checking server ", s);
         ns.ls(s).forEach(async file => {
             if (!file.endsWith(".lit") && !file.endsWith(".txt"))

@@ -5,7 +5,7 @@ import * as util from "lib/utils.js";
 export async function main(ns) {
 	ns.disableLog("ALL");
 	await libPort.runServer(ns, 2, async (query) => {
-		var servers = util.getAllServers(ns);
+		var servers = util.getAllHostnames(ns);
 		var targets = servers
 			.filter((s) => { var data = ns.getServer(s); return !data.hasAdminRights && data.requiredHackingSkill <= ns.getHackingLevel()})
 			;
