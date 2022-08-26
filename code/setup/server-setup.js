@@ -2,7 +2,8 @@
 export async function main(ns) {
     // How much RAM each purchased server will have. In this case, it'll
     // be 8GB.
-    var ram = 8;
+    var ram = ns.args[0];
+    if (ram == undefined) ram = 8;
 
     // Iterator we'll use for our loop
     var i = 0; //ns.getPurchasedServers().length;
