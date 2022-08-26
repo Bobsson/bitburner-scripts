@@ -3,7 +3,7 @@ import * as libPort from "lib/ports";
 /** @param {import("../..").NS} ns */
 export async function main(ns) {
     while (true) {
-        let targetString = await libPort.sendQuery(ns, 2, "");
+        let targetString = await libPort.sendQuery(ns, 2, ns.args[0]);
         //ns.print("Target List: ", targetString);
         if (targetString != "") {
             let targets = targetString.toString().split(",");
@@ -13,6 +13,7 @@ export async function main(ns) {
                 await ns.sleep(2000);
             }
         }
+        if (ns.args[0] == "ALL") return;
         await ns.sleep(1000 * 60); // Only worth checking once a minute.
     }
 
