@@ -4,7 +4,7 @@ import * as libPort from "lib/ports";
 export async function main(ns) {
     while (true) {
         let targetString = await libPort.sendQuery(ns, 2, "");
-        ns.print("Target List: ", targetString);
+        //ns.print("Target List: ", targetString);
         if (targetString != "") {
             let targets = targetString.toString().split(",");
             for (var target of targets) {
