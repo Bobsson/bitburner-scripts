@@ -1,6 +1,6 @@
 /** 
  * @param {import("../..").NS} ns 
- * @returns {Array<string>} servers
+ * @returns {Array<string>}
 */
 export function getAllHostnames(ns)
 {
@@ -28,7 +28,7 @@ export function getAllHostnames(ns)
 
 /** 
  * @param {import("../..").NS} ns 
- * @returns {Array<Server>} servers
+ * @returns {Array<import("../..").Server>}
 */
 export function getAllServers(ns)
 {
@@ -56,7 +56,6 @@ export function getAllServers(ns)
 
 /** 
  * @param {import("../..").NS} ns 
- * @returns {Array<Server>} servers
 */
 export function getAllServersWithPaths(ns)
 {
