@@ -18,6 +18,7 @@ export async function main(ns) {
 			s.effectiveHackValue = s.hackValue * ns.hackAnalyzeChance(s.hostname);
 			s.effectiveHackValuePerTime = s.effectiveHackValue / ns.getHackTime(s.hostname);
 
+			if (s.moneyAvailable == 0) s.moneyAvailable = 1; // Prevent divide by zero for totally emptied servers
 			s.moneyFillingCycles = ns.growthAnalyze(s.hostname, s.moneyMax / s.moneyAvailable);
 			s.moneyFillingTime = s.moneyFillingCycles * ns.getGrowTime(s.hostname);
 

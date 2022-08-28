@@ -37,7 +37,8 @@ export async function main(ns) {
             }
         }
 
-        await ns.scp(["/deployable/server-hack-weaken.js", "/deployable/server-hack-grow.js", "/deployable/server-hack-hack.js"], hostname);
+        await ns.scp(["/deployable/server-hack-weaken.js", "/deployable/server-hack-grow.js", "/deployable/server-hack-hack.js", 
+        "/deployable/smartserver-weaken.js", "/deployable/smartserver-grow.js", "/deployable/smartserver-hack.js"], hostname);
         ++i;
     }
 }
