@@ -5,7 +5,13 @@ export async function main(ns) {
     await utils.getAllHostnames(ns).forEach(async s => {
         ns.print("Checking server ", s);
         ns.ls(s).forEach(async file => {
-            if (!file.endsWith(".lit") && !file.endsWith(".txt"))
+            if (file.endsWith("cct"))
+        {
+            ns.tprint("Found contract on ", s);
+        }
+            else if (file.endsWith("js"))
+            {}
+            else if (!file.endsWith(".lit") && !file.endsWith(".txt"))
             {
                 ns.print("Can't copy ", file);
             }
