@@ -11,7 +11,7 @@ export async function main(ns) {
     var limit = ns.getPurchasedServerLimit();
     if (limit == 0)
     {
-        ns.print("No servers available");
+        ns.tprint("No servers available");
         return;
     }
     // Continuously try to purchase servers until we've reached the maximum
@@ -28,7 +28,7 @@ export async function main(ns) {
                 //  3. Run our hacking script on the newly-purchased server with 3 threads
                 //  4. Increment our iterator to indicate that we've bought a new server
                 var host = ns.purchaseServer(hostname, ram);
-                ns.print("Bought server ", host);
+                ns.tprint("Bought server ", host);
             }
             else {
                 ns.print("Couldn't afford next server, need ", ns.getPurchasedServerCost(ram));

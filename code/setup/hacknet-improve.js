@@ -37,7 +37,7 @@ function findBestNodeUpgrade(ns) {
     //ns.print(sorted);
     if (sorted.length == 0) 
     {
-        ns.print("Nothing to do"); return;
+        ns.tprint("Nothing to do"); return;
     }
     var cheapestId = sorted[0][0];
     var cheapestNode = ns.hacknet.getNodeStats(cheapestId);
