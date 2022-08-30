@@ -1,6 +1,6 @@
 import * as libPort from "/lib/ports.js";
 
-/** @param {import("../..").NS} ns */
+/** @param {import("..").NS} ns */
 export async function main(ns) {
 	ns.disableLog("scan");
 	await libPort.runServer(ns, 1, async (query) => {
