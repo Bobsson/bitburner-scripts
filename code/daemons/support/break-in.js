@@ -24,6 +24,9 @@ export async function main(ns) {
 		if (ports-- > 0 && ns.fileExists("HTTPWorm.exe", "home")) {
 			ns.httpworm(target.hostname);
 		}
+		if (ports-- > 0  && ns.fileExists("SQLInject.exe", "home")) {
+			ns.sqlinject(target.hostname);
+		}
 		if (ports > 0) {
 			ns.alert("Too many ports!  Could not break in.");
 		}
