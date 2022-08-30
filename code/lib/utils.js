@@ -71,7 +71,10 @@ export function getAllServersWithPaths(ns)
             if (target.startsWith("pserv-")) { continue; }
             if (servers[target] == null)
             {
-                servers[target] = servers[s] + ">" + target;
+                if (ns.getServer(target).backdoorInstalled)
+                    servers[target] = servers[s] + ">" + target + "**";
+                else
+                    servers[target] = servers[s] + ">" + target;
                 toVisit = toVisit.concat(target);
             }
         }
