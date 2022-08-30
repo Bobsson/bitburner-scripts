@@ -2,7 +2,10 @@
     "compilerOptions": {
       "allowJs": true,
       //"checkJs": true,
-      "lib": [ "es2015" ]
+      "lib": [ "es2015" ],
+      "paths":{
+        "/lib/*" : ["./code/lib/*"]
+      }
     },
     "exclude": ["node_modules", "**/node_modules/*"]
   }

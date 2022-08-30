@@ -1,6 +1,10 @@
-import * as libport from "lib/ports";
+import * as libport from "/lib/ports";
 
-/** @param {import("../..").NS} ns */
+/** 
+ * @param {import("../..").NS} ns 
+ * @description Primary control module for all purchased servers.
+ * @requires /deployable/smartserver-*.js
+ * */
 export async function main(ns) {
     ns.disableLog("sleep");
     ns.disableLog("exec");

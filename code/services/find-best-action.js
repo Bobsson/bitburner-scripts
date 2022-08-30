@@ -1,4 +1,4 @@
-import * as libPort from "lib/ports";
+import * as libPort from "/lib/ports";
 import * as util from "/lib/utils";
 
 /**

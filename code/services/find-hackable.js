@@ -1,5 +1,5 @@
-import * as libPort from "lib/ports.js";
-import * as util from "lib/utils.js";
+import * as libPort from "/lib/ports.js";
+import * as util from "/lib/utils.js";
 
 /** @param {import("../..").NS} ns */
 export async function main(ns) {

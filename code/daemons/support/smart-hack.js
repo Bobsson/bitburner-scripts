@@ -1,4 +1,9 @@
-/** @param {import("..").NS} ns */
+/** 
+ * @param {import("../../..").NS} ns 
+ * @description Break into a server and have it start attacking itself.
+ * @requires ./hack-it.js
+ * @requires ./break-in.js
+ * */
 export async function main(ns) {
     var scriptSize = ns.getScriptRam("hack-it.js");
     ns.print("Beginning hack...");
