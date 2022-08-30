@@ -9,7 +9,7 @@ export async function main(ns) {
         ns.ls(s).forEach(async file => {
             if (file.endsWith("cct")) {
                 // ns.tprint("Found contract on ", s, ": ", ns.codingcontract.getContractType(file, s));
-                contracts.push({ "server": s, "type": ns.codingcontract.getContractType(file, s) });
+                contracts.push({ "server": s, "type": ns.codingcontract.getContractType(file, s), "name": file });
             }
             else if (file.endsWith("js")) { }
             else if (!file.endsWith(".lit") && !file.endsWith(".txt")) {
@@ -29,7 +29,7 @@ export async function main(ns) {
     {
         ns.tprint("Found ", contracts.length, " contracts");
         contracts.sort((a,b) => a.type.localeCompare(b.type));
-        contracts.forEach(c => ns.tprint(c.server, ": ", c.type));
+        contracts.forEach(c => ns.tprint(c.server, ": ", c.type, " - ", c.name));
     }
 }
 

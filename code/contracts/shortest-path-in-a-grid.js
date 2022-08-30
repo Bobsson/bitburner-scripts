@@ -103,7 +103,9 @@ export async function main(ns)
     ns.print(path);
     path.reverse();
     ns.print(path.join(""));
-    ns.tprint(ns.codingcontract.attempt(path.join(""), ns.args[1], ns.args[0], {"returnReward": true}));
+    ns.tprint("Result: ", path.join(""));
+    if (await ns.prompt("Submit?"))
+        ns.tprint(ns.codingcontract.attempt(path.join(""), ns.args[1], ns.args[0], {"returnReward": true}));
 }
 
 /**

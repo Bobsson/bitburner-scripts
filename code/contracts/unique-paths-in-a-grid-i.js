@@ -1,27 +1,21 @@
-/* Unique Paths in a Grid II
+/* Unique Paths in a Grid I
 You are attempting to solve a Coding Contract. You have 9 tries remaining, after which the contract will self-destruct.
 
+You are in a grid with 8 rows and 3 columns, and you are positioned in the top-left corner of that grid. You are trying to reach the bottom-right corner of the grid, but you can only move down or right on each step. Determine how many unique paths there are from start to finish.
 
-You are located in the top-left corner of the following grid:
+NOTE: The data returned for this contract is an array with the number of rows and columns:
 
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
+[8, 3]
 
-You are trying reach the bottom-right corner of the grid, but you can only move down or right on each step. Furthermore, there are obstacles on the grid that you cannot move onto. These obstacles are denoted by '1', while empty spaces are denoted by 0.
 
-Determine how many unique paths there are from start to finish.
-
-NOTE: The data returned for this contract is an 2D array of numbers representing the grid.
 */
 
 /** @param {import("../..").NS} ns */
 export async function main(ns) 
 {
     let data = ns.codingcontract.getData(ns.args[1], ns.args[0]);
-    let grid = Array.from(data);
-    let height = grid.length;
-    let width = parseInt(grid[0].length);
+    let height = data[0];
+    let width = data[1];
     let paths = ["R", "D"];
     let goals = [];
 
@@ -34,7 +28,7 @@ export async function main(ns)
         //ns.print("Examining ", path, " which has ", countLetter(path, /D/gi), " Ds and ", countLetter(path, /R/gi), " Rs");
         let down = countLetter(path, /D/gi);
         let across = countLetter(path, /R/gi);
-        if (grid[down][across] == "1") continue;
+        
         if (down >= height-1) 
         {
             // Only one valid option once we've gone down enough.
