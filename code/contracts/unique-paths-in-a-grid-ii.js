@@ -14,51 +14,55 @@ Determine how many unique paths there are from start to finish.
 
 NOTE: The data returned for this contract is an 2D array of numbers representing the grid.
 */
+import * as libcon from "/lib/contracts";
 
 /** @param {import("../..").NS} ns */
 export async function main(ns) 
 {
-    let data = ns.codingcontract.getData(ns.args[1], ns.args[0]);
-    let grid = Array.from(data);
-    let height = grid.length;
-    let width = parseInt(grid[0].length);
-    let paths = ["R", "D"];
-    let goals = [];
-
-    ns.print("Grid of ", width, " across by ", height, " down");
-    while (true)
+    await libcon.runContract(ns, data => 
     {
-        if (paths.length == 0) break;
-        let path = paths.pop();
-        if (path.length == width+height-1) { goals.push(path); continue; }
-        //ns.print("Examining ", path, " which has ", countLetter(path, /D/gi), " Ds and ", countLetter(path, /R/gi), " Rs");
-        let down = countLetter(path, /D/gi);
-        let across = countLetter(path, /R/gi);
-        if (grid[down][across] == "1") continue;
-        if (down >= height-1) 
-        {
-            // Only one valid option once we've gone down enough.
-            paths.push(path + "R");
-        }
-        else if (across >= width-1)
-        {
-            // Only one valid option once we've gone right enough.
-            paths.push(path + "D");
-        }
-        else
-        {
-            paths.push(path + "R");
-            paths.push(path + "D");
-        }
-    }
+        let grid = Array.from(data);
+        let height = grid.length;
+        let width = parseInt(grid[0].length);
+        let paths = ["R", "D"];
+        let goals = [];
 
-    ns.print(goals);
-    ns.print(goals.length);
-    ns.tprint("Count: ", goals.length);
-    if (await ns.prompt("Submit?"))
-    {
-        ns.tprint("Result: ", ns.codingcontract.attempt(goals.length, ns.args[1], ns.args[0], {"returnReward": true}));
-    }
+        ns.print("Grid of ", width, " across by ", height, " down");
+        while (true)
+        {
+            if (paths.length == 0) break;
+            let path = paths.pop();
+            if (path.length == width+height-1) { goals.push(path); continue; }
+            //ns.print("Examining ", path, " which has ", countLetter(path, /D/gi), " Ds and ", countLetter(path, /R/gi), " Rs");
+            let down = countLetter(path, /D/gi);
+            let across = countLetter(path, /R/gi);
+            if (grid[down][across] == "1") continue;
+            if (down >= height-1) 
+            {
+                // Only one valid option once we've gone down enough.
+                paths.push(path + "R");
+            }
+            else if (across >= width-1)
+            {
+                // Only one valid option once we've gone right enough.
+                paths.push(path + "D");
+            }
+            else
+            {
+                paths.push(path + "R");
+                paths.push(path + "D");
+            }
+        }
+
+        ns.print(goals);
+        ns.print(goals.length);
+        return goals.length;
+        // ns.tprint("Count: ", goals.length);
+        // if (await ns.prompt("Submit?"))
+        // {
+        //     ns.tprint("Result: ", ns.codingcontract.attempt(goals.length, ns.args[1], ns.args[0], {"returnReward": true}));
+        // }
+    });
 }
 
 /** @returns {Number} */
