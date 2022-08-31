@@ -22,33 +22,52 @@ export async function main(ns)
     await libcon.runContract(ns, data => 
         {
             let values = [];
-            //data = [[1, 3], [8, 10], [2, 6], [10, 16]];
+            //data = [[1, 3], [8, 10], [2, 6], [10, 16], [17, 20]];
             ns.print(data);
-            for (let interval of data)
+            data.sort((a,b) => a[0] - b[0]);
+            values.push(data[0]);
+            let abort = 3;
+            while (abort-- > 0)
             {
-                for (let i = interval[0]; i <= interval[1]; i++)
+                let changed = false;
+                for (let n of data) // next
                 {
-                    values[i] = true;
+                    var e = values.pop(); // existing
+                    if (n[1] <= e[1])
+                    {
+                        values.push(e);
+                    }
+                    else if (e[1] < n[0])
+                    {
+                        values.push(e);
+                        values.push(n);
+                        changed = true;
+                    }
+                    else if (e[0] <= n[0] && e[1]+1 >= n[0]) // Overlap that starts later
+                    {
+                        values.push([e[0], n[1]]);
+                        changed = true;
+                    }
+                    else if (n[0] <= e[1] && n[1]+1 >= e[1]) // Overlap that starts earlier
+                    {
+                        values.push([e[0], n[1]]);
+                        changed = true;
+                    }
+                    else if (n[0] <= e[0]) // We're in a new loop and this isn't needed.
+                    {
+                        values.push(e);
+                    }
+                    else // No overlap
+                    {
+                        values.push(e);
+                        values.push(n);
+                    }
+                    ns.print(values, " ", changed);                    
                 }
+                if (!changed) break;
+                ns.print("Going to next loop because ", changed);
             }
-            values.push(undefined);
-            ns.print(values);
-            let result = [];
-            let start;
-            for(let i = 0; i <= values.length; i++)
-            {
-                ns.print("Testing ", i, ": ", values[i-1], "=>", values[i-1] === undefined, "&", start === undefined);
-                if (values[i-1] === undefined && start === undefined) continue; // Not in an interval
-                else if (values[i-1] === undefined) // Ending an interval
-                {
-                    //ns.print("interval ", start, ",", i-2);
-                    result.push([start, i-2]);
-                    start = undefined;
-                }
-                else if (start === undefined) start = i-1; // Starting an interval
-                else continue; // Still in an interval
-            }
-            ns.print(result);
-            return result;
+            ns.print("Final: ", values);
+            return values;
         });
 }
